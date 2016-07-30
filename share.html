@@ -1,0 +1,54 @@
+<!--https://developers.facebook.com/docs/sharing/reference/feed-dialog-->
+<html>
+    <head></head>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '281028995595356',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+    
+    report();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+function report() {
+
+FB.ui({
+  method: 'feed',
+  name: "test",
+  link: 'localhost',
+  caption: 'An example caption',
+  message: "WOO",
+  description: 'test',
+  picture: 'http://google.com/img.png',
+}, function(response){alert(response)});
+
+}
+
+//document.location.href = "https://www.facebook.com/dialog/feed?app_id=1070554059705539&display=popup&amp;caption=I found out I a 39 on the PurpleRain Index, have a look at where you sit on flood (and other) risks.&link=https%3A%2F%2Fpurplerain.duckdns.org&redirect_uri=https%3A%2F%2Fpurplerain.duckdns.org/thanks";
+    
+   
+    </script>
+    
+<body>
+    <a href="#" type="button" value="hello" onclick="report">test </a>
+</body>
+
+<!--https://www.facebook.com/dialog/feed?
+  app_id=1070554059705539
+  &amp;display=popup&amp;caption=I found out I a 39 on the PurpleRain Index, have a look at where you sit on flood (and other) risks.
+  &amp;link=https%3A%2F%2Fpurplerain.duckdns.org
+  &amp;redirect_uri=https%3A%2F%2Fpurplerain.duckdns.org/thanks-->
+  
+
+
+</html>
