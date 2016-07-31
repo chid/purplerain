@@ -136,9 +136,9 @@ m.setIcon()
 //          mapOptions: {
 //              streetView: null
 //          },
-          markerOptions : {
-            icon: '/img/purp.png'
-          },
+          // markerOptions : {
+          //   icon: '/img/purp.png'
+          // },
           country: 'au'
         }).bind("geocode:result", function(event, result){
            console.log(result);
@@ -159,7 +159,7 @@ m.setIcon()
               console.log(result.geometry.location.toJSON());
               var heading = google.maps.geometry.spherical.computeHeading(panoCenter, result.geometry.location);
               m = $("#geocomplete").data("plugin_geocomplete").marker;
-              m.setIcon('purp-small.png');
+              m.setIcon('img/purp-small.png');
               // now we know the heading (camera direction, elevation, zoom, etc) set this as parameters to the panorama object
               var pov = panorama.getPov();
               pov.heading = heading;
@@ -375,43 +375,45 @@ Did you know, this location has a high purplerain index. The likelihood of flood
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
                         <h2>Social and News Feed</h2>
-                        <a href="#" class="btn btn-dar"kgmail.com>Sign up to alerts</a> 
+                        <a target="_blank" href="http://www.abc.net.au/news/map/?id=1254" class="btn btn-dark">Sign up to alerts</a> 
                         </div>
                         <hr class="small">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="portfolio-item">
                                     <a href="#"> <img class="img-portfolio img-responsive" src="img/wagga.jpg">
-                                    Wagga Wagga</a>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="portfolio-item">
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/portfolio-2.jpg"> </a>
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/1.jpg"> </a>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="portfolio-item">
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/portfolio-3.jpg"> </a>
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/2.jpg"> </a>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-5">
                                 <div class="portfolio-item">
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/portfolio-4.jpg"> </a>
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/3.jpg"> </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
-                            <div style="position: absolute; left: 0px; top: 0px; border: solid 2px #555; width:594px; height:332px;">
-                        <div style="overflow: hidden; margin-top: -100px; margin-left: -25px;">
-                        </div>
-                        <iframe src="http://www.abc.net.au/news/map/?id=1254" scrolling="no" style="height: 490px; border: 0px none; width: 619px; margin-top: -60px; margin-left: -24px; ">
-                        </iframe>
-                        </div>
+                            
                         </div>
                             
                         </div>
                         <!-- /.row (nested) --><a href="#" class="btn btn-dark">View More Items</a> </div>
+
+                       <!--  <div style="width:594px; height:332px;">
+                            <div style="overflow: hidden; margin-top: -100px; margin-left: -25px;">
+                        </div>
+                        <iframe src="http://www.abc.net.au/news/map/?id=1254" scrolling="no" style="height: 490px; border: 0px none; width: 619px; margin-top: -60px; margin-left: -24px; ">
+                        </iframe>
+                        </div> -->
                     <!-- /.col-lg-10 -->
                 </div>
                 <!-- /.row -->
@@ -422,13 +424,13 @@ Did you know, this location has a high purplerain index. The likelihood of flood
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
-                        <h2>Rankings</h2>
+                        <h2>Purple Rain Index Rankings</h2>
                         </div>
                         <hr class="small">
                         <div class="row">
                             <div class="col-md-12">
                                 
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/tab.png">
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/tab.png"></a></img>
                                 
                             </div>
                         </div>
