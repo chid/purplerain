@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>$.geocomplete()</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+
+    <form>
+      <input id="geocomplete" type="text" placeholder="Type in an address" size="300" />
+      <input id="find" type="button" value="find" />
+    </form>
+    
+    <div class="map_canvas"></div>
+
+    <p>DO SOME STUFF HERE<br />
+    <button>test</button>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <script src="../jquery.geocomplete.js"></script>
+    <script src="logger.js"></script>
+
+    <script>
+      
+    var map;
+    var panorama;
+    var center;
+      $(function(){
+        var center = new google.maps.LatLng(-33.8688197,151.2092955);
+
+        $("#geocomplete").geocomplete({
+          map: ".map_canvas",
+//          types: ['establishment'],
+//          mapOptions: {
+//              streetView: null
+//          },
+          country: 'au'
+        }).bind("geocode:result", function(event, result){
+//            console.log(result);
+           
+             
+           panorama = map.getStreetView();
+           panorama.setVisible(true)
+        });;
+
+        map =  $("#geocomplete").geocomplete("map")
+
+        map.setCenter(center);
+        map.setZoom(20);
+      });
+    </script>
+  </body>
+</html>
