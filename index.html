@@ -38,7 +38,8 @@ m.setIcon()
             <li> <a href="#top" onclick=$( "#menu-close").click();>Question 1</a> </li>
             <li> <a href="#about" onclick=$( "#menu-close").click();>Question 2 (what do you think)</a> </li>
             <li> <a href="#services" onclick=$( "#menu-close").click();>Answer / Next Steps</a> </li>
-            <li> <a href="#portfolio" onclick=$( "#menu-close").click();>Portfolio</a> </li>
+            <li> <a href="#Other" onclick=$( "#menu-close").click();>Other Risk Areas</a> </li>
+            <li> <a href="#social" onclick=$( "#menu-close").click();>News</a> </li>
             <li> <a href="#contact" onclick=$( "#menu-close").click();>Contact</a> </li>
         </ul>
     </nav>
@@ -97,6 +98,7 @@ m.setIcon()
           country: 'au'
         }).bind("geocode:result", function(event, result){
            console.log(result);
+           $('#bushfireLink')[0].href = "http://saferhomes.nrma.com.au/" + result.address_components[2].short_name.toLocaleLowerCase()+'/'+result.address_components[6].short_name + '/bushfire';
            map.setCenter(result.geometry.location.toJSON());
            panorama = map.getStreetView();
            panorama.setPosition(result.geometry.location.toJSON());
@@ -122,6 +124,36 @@ m.setIcon()
 //                map: pano,
 //                position: lookTo
 //              });
+
+                // var y = $(window).scrollTop();  //your current y position on the page
+                // $(window).scrollTop(y+150);
+                var y = $(window).scrollTop();  //your current y position on the page
+                $('html,body').animate({scrollTop:y+250});
+                r = {'conditions': {
+                    "latitude": curr.lat(),
+                    "longitude": curr.lng(),
+                    "max_distance": 100,
+                    "limit": 20
+                }}
+                $.ajax({
+                            type:"POST",
+                            beforeSend: function (request)
+                            {
+                                request.setRequestHeader('x-iag-api-key', 'iag-gov-hack-api');
+                                request.setRequestHeader('Content-Type', 'application/json');
+                            },
+                            url: 'http://flood-risk-api.app.skyops.io/address-flood-risk/geo-search',
+                            data: JSON.stringify(r['conditions']),
+                            processData: false,
+                            success: function(msg) {
+                                console.log(msg);
+                                api_response=msg;
+                                 var y = $(window).scrollTop();  //your current y position on the page
+                $('html,body').animate({scrollTop:y+250});
+                            }
+                    });
+                // do the ajax call.
+                // $('#about > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1)').text('Where do your friends live?')
             } else {
               // no streetview found :(
               alert('not found');
@@ -147,18 +179,105 @@ m.setIcon()
 
     <!-- Services -->
     <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-    <section id="services" class="services bg-primary">
+   
+        <!-- Callout -->
+        <!-- <aside class="callout">
+            <div class="text-vertical-center">
+                <h1>Vertically Centered Text</h1> </div>
+        </aside> -->
+        <!-- Portfolio -->
+        
+        <!-- Call to Action -->
+        <aside class="call-to-action bg-primary full">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h3>Do you think it's likely location will experience a flood (within 20 years)?</h3>
+                        <a href="#correct" class="btn btn-lg btn-light">Yes</a> <a href="#incorrect" class="btn btn-lg btn-light">No</a> </div>
+                </div>
+            </div>
+        </aside>
+        <section id="correct" class="portfolio full">
+            <!-- Call to Action -->
+            <aside class="call-to-action bg-success">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h3>Great correct.</h3>
+                            <h1><br />
+You seem to have a good eye for detecting flood risk! Even though this area is low risk, it's still worth understanding the steps you can take to reduce damage and harm should disaster strike.
+                    </h1>
+                            <a href="http://www.bom.gov.au/water/floods/document/What_todo_floods.pdf" class="btn btn-dark">Learn More</a><a href="#about" class="btn btn-light">Try Again?</a><a href="#other" class="btn btn-dark">Other Risk Factors</a>
+
+                            
+                            <br/>
+                            <h4>
+        Share with your family
+        </h4>
+                            <ul class="list-inline">
+                                <li> <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
+                                <li> <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
+                                <li> <a href="mailto:message='Hi,Your purple rain rating was high found your location  is prone to high risk of flooding based on public data available. Dont wait until its too late, think about getting quick quote today at <> protect your property today.'"><i class="fa fa-envelope fa-fw fa-3x"></i></a> </li>
+                            </ul>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+        <section id="incorrect" class="portfolio full">
+            <!-- Call to Action -->
+            <aside class="call-to-action bg-danger">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h3>"
+You are incorrect</h3>
+                            <h1>
+Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
+        </h1>
+                    
+                     <h4>
+        Share with your family and let them know!
+        </h4>
+                            <ul class="list-inline">
+                                <li> <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
+                                <li> <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
+                                <li> <a href="mailto:message='Hi,Your purple rain rating was high found your location  is prone to high risk of flooding based on public data available. Dont wait until its too late, think about getting quick quote today at <> protect your property today.'"><i class="fa fa-envelope fa-fw fa-3x"></i></a> </li>
+                            </ul> </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+        <!-- Map -->
+        <!--
+    <section id="contact" class="map">
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+        <br />
+        <small>
+            <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+        </small>
+        </iframe>
+    </section>
+--> 
+         <section id="other" class="services bg-primary">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-10 col-lg-offset-1">
                     <h2>Other Risk Factors</h2>
-                    <hr class="small"/>
+                    <hr class="small" style="width:300px;max-width:300px"/>
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                 <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+                                <i class="fa fa-circle fa-stack-2x">
+                                    
+                                </i>
+                                
+                                <i class="fa fa-cloud fa-stack-1x text-primary" style=""></i>
+                                <img src="img/fire.png" alt="">
                             </span>
                                 <h4>
                                     <strong>Storms & Hail</strong>
@@ -168,22 +287,12 @@ m.setIcon()
         <div class="col-md-3 col-sm-6">
             <div class="service-item"> <span class="fa-stack fa-4x">
                                         <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                                        <i class="fa fa-fire fa-stack-1x text-primary"></i>
                                     </span>
                 <h4>
-                                            <strong>Service Name</strong>
+                                            <strong>Bushfire</strong>
                                         </h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> <a href="#" class="btn btn-light">Learn More</a> </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="service-item"> <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
-                            </span>
-                <h4>
-                                    <strong>Service Name</strong>
-                                </h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> <a href="#" class="btn btn-light">Learn More</a> </div>
+                <p></p> <a id="bushfireLink" href="#" class="btn btn-light">Learn More</a> </div>
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="service-item"> <span class="fa-stack fa-4x">
@@ -191,9 +300,19 @@ m.setIcon()
                                 <i class="fa fa-shield fa-stack-1x text-primary"></i>
                             </span>
                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Theft</strong>
                                 </h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> <a href="#" class="btn btn-light">Learn More</a> </div>
+                <p></p> <a href="#" class="btn btn-light">Learn More</a> </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="service-item"> <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
+                            </span>
+                <h4>
+                                    <strong>House Fire or Leaks</strong>
+                                </h4>
+                <p></p> <a href="#" class="btn btn-light">Learn More</a> </div>
         </div>
         </div>
         <!-- /.row (nested) -->
@@ -204,22 +323,17 @@ m.setIcon()
         </div>
         <!-- /.container -->
         </section>
-        <!-- Callout -->
-        <aside class="callout">
-            <div class="text-vertical-center">
-                <h1>Vertically Centered Text</h1> </div>
-        </aside>
-        <!-- Portfolio -->
         <section id="portfolio" class="portfolio">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
-                        <h2>Our Work</h2>
+                        <h2>Social and News Feed</h2>
+                        <a href="#" class="btn btn-light">Sign up to alerts</a> </div>
                         <hr class="small">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="portfolio-item">
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/portfolio-1.jpg"> </a>
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/wagga.jpg"> </a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -238,6 +352,16 @@ m.setIcon()
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div style="position: absolute; left: 0px; top: 0px; border: solid 2px #555; width:594px; height:332px;">
+                        <div style="overflow: hidden; margin-top: -100px; margin-left: -25px;">
+                        </div>
+                        <iframe src="http://www.abc.net.au/news/map/?id=1254" scrolling="no" style="height: 490px; border: 0px none; width: 619px; margin-top: -60px; margin-left: -24px; ">
+                        </iframe>
+                        </div>
+                        </div>
+                            
+                        </div>
                         <!-- /.row (nested) --><a href="#" class="btn btn-dark">View More Items</a> </div>
                     <!-- /.col-lg-10 -->
                 </div>
@@ -245,68 +369,6 @@ m.setIcon()
             </div>
             <!-- /.container -->
         </section>
-        <!-- Call to Action -->
-        <aside class="call-to-action bg-primary full">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h3>Do you think this location will experience a flood (within 30 years)?</h3>
-                        <h1>PUT A MAP HERE</h1> <a href="#yay" class="btn btn-lg btn-light">Yes</a> <a href="#" class="btn btn-lg btn-light">No</a> </div>
-                </div>
-            </div>
-        </aside>
-        <section id="correct" class="portfolio">
-            <!-- Call to Action -->
-            <aside class="call-to-action bg-success">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h3>YAY</h3>
-                            <h1>Great correct.
-You seem to have a good eye for detecting flood risk!
-                    </h1>
-                            <br/>
-                            <h4>
-        Share with your family
-        </h4>
-                            <ul class="list-inline">
-                                <li> <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
-                                <li> <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
-                                <li> <a href="mailto:message='Hi,Your purple rain rating was high found your location  is prone to high risk of flooding based on public data available. Dont wait until its too late, think about getting quick quote today at <> protect your property today.'"><i class="fa fa-envelope fa-fw fa-3x"></i></a> </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </section>
-        <section id="incorrect" class="portfolio">
-            <!-- Call to Action -->
-            <aside class="call-to-action bg-danger">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h3>NOOOOOOOO</h3>
-                            <h1>
-You are failing
-You seem to have a good eye for detecting flood. Based on the elevation of land a minimun of this 20mm would start to cause flooding to this location
-        
-        your 
-        </h1> </div>
-                    </div>
-                </div>
-            </aside>
-        </section>
-        <!-- Map -->
-        <!--
-    <section id="contact" class="map">
-        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-        <br />
-        <small>
-            <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-        </small>
-        </iframe>
-    </section>
--->
         <section id="data" class="services bg-primary map">
             <div class="container">
                 <div class="row">
@@ -326,10 +388,9 @@ You seem to have a good eye for detecting flood. Based on the elevation of land 
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
-                        <h4><strong>Start Bootstrap</strong>
+                        <h4><strong>Disclosures</strong>
                     </h4>
-                        <p>3481 Melrose Place
-                            <br>Beverly Hills, CA 90210</p>
+                        <p>PurpleRain website is intended only as a source of information. While PurpleRain has tried to ensure this website’s accuracy, you should not rely on any representation, statement or information on this website without first making your own enquiries about the accuracy and reliability of the information provided. PurpleRain does not accept any liability for the information or advice provided on this site or for loss or damages resulting from reliance on the information contained on this site.</p>
                         <ul class="list-unstyled">
                             <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
                             <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a> </li>
