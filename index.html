@@ -49,9 +49,9 @@ m.setIcon()
             <h1>PurpleRain</h1>
             <h2>Floods in Australia</h2>
             <h3>We don't think much about the risks of floods in Australia, it is a real risk with a significant annual cost.</h3>
-            <h4>Whilst in your area, Sydney CBD, the risks are low</h4>
+            <!-- <h4>Whilst in your area, Sydney CBD, the risks are low</h4>
             <p>Latest issues - http://www.news.com.au/national/communities-count-costs-in-lives-and-livelihoods-as-storm-cleanup-continues/news-story/03f2a9f16aa0f202fd5140ec305eeaf8</p>
-            <br>
+             --><br>
             <a href="#about" class="btn btn-dark btn-lg">Find Out More</a>
         </div>
     </header>
@@ -84,6 +84,50 @@ m.setIcon()
       var api_response;
       var flood_freq;
       $(document).ready(function(){
+            y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)').click(function() {
+                first = api_response[0];
+                y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)')[0];
+                n = $('a.btn-lg:nth-child(3)')[0];
+                if (first.flood_frequency == "H" || first.flood_frequency == "M") { 
+                    // console.log("correct"); 
+                    $('#correct').show();$('#incorrect').hide();
+                    $('html,body').animate({scrollTop: $('#correct').offset().top}, 1000);
+
+                } else { 
+                    // console.log("inccorect");
+                    $('#correct').hide();$('#incorrect').show();
+                    $('html,body').animate({scrollTop: $('#incorrect').offset().top}, 1000);
+                };
+            });
+            n = $('a.btn-lg:nth-child(3)').click(function() {
+                first = api_response[0];
+                y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)')[0];
+                n = $('a.btn-lg:nth-child(3)')[0];
+                if (first.flood_frequency == "H" || first.flood_frequency == "M") { 
+                    $('#correct').hide();$('#incorrect').show();
+                    $('html,body').animate({scrollTop: $('#incorrect').offset().top}, 1000);
+                 
+                } else { 
+                    // console.log("inccorect");
+                     $('#correct').show();$('#incorrect').hide();
+                    $('html,body').animate({scrollTop: $('#correct').offset().top}, 1000);
+
+                };
+            });
+        
+      });
+      function handleResponse() {
+        // 
+        first = api_response[0];
+        y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)')[0];
+        n = $('a.btn-lg:nth-child(3)')[0];
+        if (first.flood_frequency == "H" || first.flood_frequency == "M") { 
+            console.log("HIGH"); 
+        } else { 
+            console.log("LOW") 
+        };
+      }
+      $(document).ready(function(){
         var center = new google.maps.LatLng(-33.8688197,151.2092955);
 
         $("#geocomplete").geocomplete({
@@ -98,7 +142,6 @@ m.setIcon()
           country: 'au'
         }).bind("geocode:result", function(event, result){
            console.log(result);
-           $('#bushfireLink')[0].href = "http://saferhomes.nrma.com.au/" + result.address_components[2].short_name.toLocaleLowerCase()+'/'+result.address_components[6].short_name + '/bushfire';
            map.setCenter(result.geometry.location.toJSON());
            panorama = map.getStreetView();
            panorama.setPosition(result.geometry.location.toJSON());
@@ -149,7 +192,8 @@ m.setIcon()
                                 console.log(msg);
                                 api_response=msg;
                                  var y = $(window).scrollTop();  //your current y position on the page
-                $('html,body').animate({scrollTop:y+250});
+                                $('html,body').animate({scrollTop:y+250});
+                                $('#about > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1)').text("Try another location (friend/family)");
                             }
                     });
                 // do the ajax call.
@@ -158,6 +202,8 @@ m.setIcon()
               // no streetview found :(
               alert('not found');
             }
+           $('#bushfireLink')[0].href = "http://saferhomes.nrma.com.au/" + result.address_components[2].short_name.toLocaleLowerCase()+'/'+result.address_components[6].short_name + '/bushfire';
+
         
       }); 
            
@@ -193,7 +239,7 @@ m.setIcon()
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h3>Do you think it's likely location will experience a flood (within 20 years)?</h3>
-                        <a href="#correct" class="btn btn-lg btn-light">Yes</a> <a href="#incorrect" class="btn btn-lg btn-light">No</a> </div>
+                        <a href="#" class="btn btn-lg btn-light">Yes</a> <a href="#" class="btn btn-lg btn-light">No</a> </div>
                 </div>
             </div>
         </aside>
@@ -205,7 +251,7 @@ m.setIcon()
                         <div class="col-lg-12 text-center">
                             <h3>Great correct.</h3>
                             <h1><br />
-You seem to have a good eye for detecting flood risk! Even though this area is low risk, it's still worth understanding the steps you can take to reduce damage and harm should disaster strike.
+You seem to have a good eye for detecting flood risk! Even though this area has a low purplerain index, it's still worth understanding the steps you can take to reduce damage and harm should disaster strike.
                     </h1>
                             <a href="http://www.bom.gov.au/water/floods/document/What_todo_floods.pdf" class="btn btn-dark">Learn More</a><a href="#about" class="btn btn-light">Try Again?</a><a href="#other" class="btn btn-dark">Other Risk Factors</a>
 
@@ -236,9 +282,9 @@ You seem to have a good eye for detecting flood risk! Even though this area is l
                             <h3>"
 You are incorrect</h3>
                             <h1>
-Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
+Did you know, this location has a high purplerain index. The likelihood of flooding is actually quite high. Learn how to protect yourself and your loved ones below.
         </h1>
-                    
+                    <a href="http://www.bom.gov.au/water/floods/document/What_todo_floods.pdf" class="btn btn-dark">Learn More</a><a href="#about" class="btn btn-light">Try Again?</a><a href="#other" class="btn btn-dark">Other Risk Factors</a>
                      <h4>
         Share with your family and let them know!
         </h4>
@@ -328,12 +374,14 @@ Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
                         <h2>Social and News Feed</h2>
-                        <a href="#" class="btn btn-light">Sign up to alerts</a> </div>
+                        <a href="#" class="btn btn-light">Sign up to alerts</a> 
+                        </div>
                         <hr class="small">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="portfolio-item">
-                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/wagga.jpg"> </a>
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/wagga.jpg">
+                                    Wagga Wagga</a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -369,7 +417,29 @@ Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
             </div>
             <!-- /.container -->
         </section>
-        <section id="data" class="services bg-primary map">
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1 text-center">
+                        <h2>Rankings</h2>
+                        </div>
+                        <hr class="small">
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                                    <a href="#"> <img class="img-portfolio img-responsive" src="img/tab.png">
+                                
+                            </div>
+                        </div>
+                            
+                        </div>
+                    <!-- /.col-lg-10 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <section id="data" class="services bg-primary map" style="display:none">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
@@ -379,6 +449,8 @@ Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
                             <li> Google Maps (Elevation) </li>
                             <li> Floodmaps. </li>
                         </ul>
+
+
                     </div>
                 </div>
             </div>
@@ -391,17 +463,11 @@ Did you know, this location is prone to high risk. INSERT SOMETHING HERE.
                         <h4><strong>Disclosures</strong>
                     </h4>
                         <p>PurpleRain website is intended only as a source of information. While PurpleRain has tried to ensure this website’s accuracy, you should not rely on any representation, statement or information on this website without first making your own enquiries about the accuracy and reliability of the information provided. PurpleRain does not accept any liability for the information or advice provided on this site or for loss or damages resulting from reliance on the information contained on this site.</p>
-                        <ul class="list-unstyled">
+                        <!--<ul class= "list-unstyled">
                             <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
                             <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a> </li>
-                        </ul>
-                        <br>
-                        <ul class="list-inline">
-                            <li> <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
-                            <li> <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
-                            <li> <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a> </li>
-                        </ul>
-                        <hr class="small">
+                        </ul> -->
+                        <br><hr class="small">
                         <p class="text-muted">Copyright &copy; AC Group LTD PTY GBMH</p>
                     </div>
                 </div>
