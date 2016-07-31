@@ -158,6 +158,8 @@ m.setIcon()
               // the "computeHeading" function calculates the heading with the two GPS coordinates entered as parameters
               console.log(result.geometry.location.toJSON());
               var heading = google.maps.geometry.spherical.computeHeading(panoCenter, result.geometry.location);
+              m = $("#geocomplete").data("plugin_geocomplete").marker;
+              m.setIcon('purp-small.png');
               // now we know the heading (camera direction, elevation, zoom, etc) set this as parameters to the panorama object
               var pov = panorama.getPov();
               pov.heading = heading;
@@ -170,8 +172,8 @@ m.setIcon()
 
                 // var y = $(window).scrollTop();  //your current y position on the page
                 // $(window).scrollTop(y+150);
-                var y = $(window).scrollTop();  //your current y position on the page
-                $('html,body').animate({scrollTop:y+250});
+                // var y = $(window).scrollTop();  //your current y position on the page
+                // $('html,body').animate({scrollTop:y+250});
                 r = {'conditions': {
                     "latitude": curr.lat(),
                     "longitude": curr.lng(),
@@ -279,8 +281,7 @@ You seem to have a good eye for detecting flood risk! Even though this area has 
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <h3>"
-You are incorrect</h3>
+                            <h3>You are incorrect</h3>
                             <h1>
 Did you know, this location has a high purplerain index. The likelihood of flooding is actually quite high. Learn how to protect yourself and your loved ones below.
         </h1>
@@ -374,7 +375,7 @@ Did you know, this location has a high purplerain index. The likelihood of flood
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center">
                         <h2>Social and News Feed</h2>
-                        <a href="#" class="btn btn-light">Sign up to alerts</a> 
+                        <a href="#" class="btn btn-dar"kgmail.com>Sign up to alerts</a> 
                         </div>
                         <hr class="small">
                         <div class="row">
