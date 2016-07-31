@@ -85,6 +85,7 @@ m.setIcon()
       var flood_freq;
       $(document).ready(function(){
             y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)').click(function() {
+
                 first = api_response[0];
                 y = $('aside.call-to-action:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(2)')[0];
                 n = $('a.btn-lg:nth-child(3)')[0];
@@ -93,7 +94,9 @@ m.setIcon()
                     $('#correct').show();$('#incorrect').hide();
                     $('html,body').animate({scrollTop: $('#correct').offset().top}, 1000);
 
+                    m = $("#geocomplete").data("plugin_geocomplete").marker;;m.setIcon('img/Himarker.png');
                 } else { 
+                    m = $("#geocomplete").data("plugin_geocomplete").marker;;m.setIcon('img/Lowmarker.png');
                     // console.log("inccorect");
                     $('#correct').hide();$('#incorrect').show();
                     $('html,body').animate({scrollTop: $('#incorrect').offset().top}, 1000);
@@ -107,10 +110,13 @@ m.setIcon()
                     $('#correct').hide();$('#incorrect').show();
                     $('html,body').animate({scrollTop: $('#incorrect').offset().top}, 1000);
                  
+                              m = $("#geocomplete").data("plugin_geocomplete").marker;;m.setIcon('img/Himarker.png');
                 } else { 
+                    m = $("#geocomplete").data("plugin_geocomplete").marker;;m.setIcon('img/Lowmarker.png');
                     // console.log("inccorect");
                      $('#correct').show();$('#incorrect').hide();
                     $('html,body').animate({scrollTop: $('#correct').offset().top}, 1000);
+
 
                 };
             });
